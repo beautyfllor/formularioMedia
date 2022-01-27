@@ -9,13 +9,24 @@
 
     //Validação para tratar se o botão foi clicado
     if(isset($_POST["btncalc"])) {
-        //Recebendo dados utilizando POST do formulário
-        $nota1 = $_POST["txtn1"];
-        $nota2 = $_POST["txtn2"];
-        $nota3 = $_POST["txtn3"];
-        $nota4 = $_POST["txtn4"];
 
-        $media = ($nota1 + $nota2 + $nota3 + $nota4) / 4;
+         //Recebendo dados utilizando POST do formulário
+         $nota1 = $_POST["txtn1"];
+         $nota2 = $_POST["txtn2"];
+         $nota3 = $_POST["txtn3"];
+         $nota4 = $_POST["txtn4"];
+
+         //Validação  para tratamento de caixa vazia
+        if($_POST["txtn1"] == "" || $_POST["txtn2"] == "" || $_POST["txtn3"] == "" || $_POST["txtn4"] == "") {
+            echo('<p class="msgErro">Preencha todos os campos!</p>');
+        } else {
+            //Validação para tratamento de valores inválidos
+            if(!is_numeric($nota1) || !is_numeric($nota2) || !is_numeric($nota3) || !is_numeric($nota4)) {
+                echo('<p class="msgErro">Todos os dados devem ser números!</p>');
+            } else {
+                $media = ($nota1 + $nota2 + $nota3 + $nota4) / 4;
+            }
+        }
     }
 ?>
 
@@ -34,7 +45,7 @@
             </header>
 
             <div id="form">
-                <form name="frmMedia" method="post" action="media.php">
+                <form name="frmMedia" method="post" action="index.php">
                     <div>
                         <label>Nota 1:</label>
                         <input type="text" name="txtn1" value="<?php echo($nota1)?>"  > 
